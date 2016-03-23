@@ -11,6 +11,30 @@ I have battled through a number of tutorials to try and get a basic Flask web se
 
 Have a look further down below at the section for "Further Reading" of the resources I have consulted in order to arrive at this demo application.
 
+## Preparing the Apache Environment
+
+I am not going to go over the installation of Linux. For the purpose of this guide, I have used Debian 8 (jessie) and I assume you have a running version which are patched.
+
+I further assume you know how to install packages using the "apt" utilities.
+
+I am also assuming you are logged in as root. Some users may wish to stick with the "sudo" command - it's your choice.
+
+### Install the Pre-Requisites
+
+Use the following command as a guide:
+
+```
+# sudo apt-get install apache2 python3 python3-pip python3-virtualenv libapache2-mod-wsgi-py3
+# sudo update-alternatives --config python
+```
+
+The last command allows you to set Python3 as a default option. You can then easily test:
+
+```
+# python --version
+Python 3.4.2
+```
+
 ## Further Reading
 
 There were many resources I have used in putting this tutorial together, so overall I want to thank all the Python contributors on sites like stackoverflow which I use intensively almost on a daily basis - you guys rock! I wish I took down all the pages I used for this demo, but unfortunately I did not track it from the start, so I will just acknowledge for now the main non-stackoverflow resources I used.
