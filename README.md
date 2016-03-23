@@ -1,5 +1,7 @@
 # Flask Web Services Example on Linux with Apache 2 and WSGI
 
+[About Me](about.me/nico.coetzee "About Nico Coetzee")
+
 ## Introduction
 
 I have battled through a number of tutorials to try and get a basic Flask web services application going, using the following stack:
@@ -9,9 +11,11 @@ I have battled through a number of tutorials to try and get a basic Flask web se
 * WSGI
 * Python 3
 
+In addition, I would like to run the application in a virtual environment.
+
 Have a look further down below at the section for "Further Reading" of the resources I have consulted in order to arrive at this demo application.
 
-## Preparing the Apache Environment
+## Preparing the Environment
 
 I am not going to go over the installation of Linux. For the purpose of this guide, I have used Debian 8 (jessie) and I assume you have a running version which are patched.
 
@@ -19,12 +23,10 @@ I further assume you know how to install packages using the "apt" utilities.
 
 I am also assuming you are logged in as root. Some users may wish to stick with the "sudo" command - it's your choice.
 
-### Install the Pre-Requisites
-
-Use the following command as a guide:
+Use the following commands as a guide:
 
 ```
-# sudo apt-get install apache2 python3 python3-pip python3-virtualenv libapache2-mod-wsgi-py3
+# sudo apt-get install apache2 python3 python3-pip python3-virtualenv libapache2-mod-wsgi-py3 git
 # sudo update-alternatives --config python
 ```
 
@@ -33,6 +35,93 @@ The last command allows you to set Python3 as a default option. You can then eas
 ```
 # python --version
 Python 3.4.2
+```
+
+The minimum require software should now be installed and your default python interpreter should point to python 3.
+
+## Install from GitHub
+
+Change into /tmp and run the following commands (I am not going to explain every single step):
+
+```
+# git clone https://github.com/nicc777/flask-webservice-wsgi-python3-demo.git
+# mkdir /opt/fwsdemo
+# cp flask-webservice-wsgi-python3-demo/opt/fwsdemo/app.wsgi /opt/fwsdemo/
+# cp flask-webservice-wsgi-python3-demo/apache_conf/fwsdemo.conf /etc/apache2/sites-available/
+# cd flask-webservice-wsgi-python3-demo/
+# python setup.py sdist
+# cd /opt/fwsdemo/
+# virtualenv --python=python3 venv
+# . venv/bin/activate
+(venv)# pip install /tmp/flask-webservice-wsgi-python3-demo/dist/fwsdemo-0.0.1.tar.gz
+```
+
+Now a quick test:
+
+```
+(venv)# python
+Python 3.4.2 (default, Oct  8 2014, 10:45:20)
+[GCC 4.9.1] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from fwsdemo import app
+Using dbString=sqlite:///test2.db
+>>>
+(venv)# rm -vf test2.db
+removed ‘test2.db’
+(venv)# deactivate
+#
+```
+
+Prepare the directory permissions (required for the DB - may not be required in most other cases):
+
+```
+# cd /opt
+# chown -R www-data.www-data fwsdemo/
+# chmod 770 fwsdemo/
+```
+
+Enable the Apache config:
+
+```
+# a2ensite fwsdemo.conf
+Enabling site fwsdemo.
+To activate the new configuration, you need to run:
+  service apache2 reload
+# service apache2 reload
+```
+
+## Testing
+
+Simple test from the local machine:
+
+```
+# curl http://localhost/
+{"userCount": 0}
+```
+
+Use SQLite to add some data for more tests:
+
+```
+# sqlite3 /opt/fwsdemo/test.db
+SQLite version 3.8.7.1 2014-10-29 13:59:56
+Enter ".help" for usage hints.
+sqlite> .schema users
+CREATE TABLE users (
+	id INTEGER NOT NULL,
+	name VARCHAR(50),
+	email VARCHAR(120),
+	PRIMARY KEY (id),
+	UNIQUE (name),
+	UNIQUE (email)
+);
+sqlite> insert into users ( name, email ) values ( 'Person1', 'p1@example.tld' );
+sqlite> insert into users ( name, email ) values ( 'Person2', 'p2@example.tld' );
+sqlite> select * from users;
+1|Person1|p1@example.tld
+2|Person2|p2@example.tld
+sqlite>
+# curl http://localhost/
+{"userCount": 2}
 ```
 
 ## Further Reading
