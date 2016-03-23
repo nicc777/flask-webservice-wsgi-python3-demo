@@ -29,11 +29,11 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/pypa/sampleproject',
+    url='https://github.com/nicc777/flask-webservice-wsgi-python3-demo',
 
     # Author details
-    author='The Python Packaging Authority',
-    author_email='pypa-dev@googlegroups.com',
+    author='Nico Coetzee',
+    author_email='nicc777@gmail.com',
 
     # Choose your license
     license='MIT',
@@ -62,7 +62,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='sample setuptools development',
+    keywords='sample demo wsgi flask',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
