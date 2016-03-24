@@ -1,7 +1,5 @@
 # Flask Web Services Example on Linux with Apache 2 and WSGI
 
-[About Me](about.me/nico.coetzee "About Nico Coetzee")
-
 ## Introduction
 
 I have battled through a number of tutorials to try and get a basic Flask web services application going, using the following stack:
@@ -158,7 +156,28 @@ Ran 2 tests in 0.026s
 OK
 ```
 
-Some more tests will be added in future...
+## Running Unit Tests with Coverage
+
+You can also get coverage reporting on the unit tests. Below is an example that produces a coverage report. The last command will also create a HTML report:
+
+```
+# cd /tmp
+# git clone https://github.com/nicc777/flask-webservice-wsgi-python3-demo.git
+# cd flask-webservice-wsgi-python3-demo/
+# virtualenv --python=python3 venv
+# python setup.py sdist
+# . venv/bin/activate
+(venv)# pip install dist/fwsdemo-0.0.1.tar.gz coverage
+(venv)# coverage run -m unittest
+(venv)# coverage report --include='fwsdemo/*.py' --omit='*/__init__.py' -m
+Name                  Stmts   Miss  Cover   Missing
+---------------------------------------------------
+fwsdemo/database.py      13      0   100%   
+fwsdemo/models.py        12      0   100%   
+---------------------------------------------------
+TOTAL                    25      0   100%   
+(venv)# coverage html -d report_html --include='fwsdemo/*.py' --omit='*/__init__.py'
+```
 
 ## Further Reading
 
@@ -172,3 +191,6 @@ I also need to mention two books I used extensively to learn Flask and which put
 
 1. The first book was [Flask Web Development](http://www.flaskbook.com "Flask Web Development") by [Miguel Grinberg](https://github.com/miguelgrinberg "GitHub")
 2. The second book I used extensively was [Essential SQLAlchemy](http://shop.oreilly.com/product/0636920035800.do "Essential SQLAlchemy")
+
+
+[About Me](about.me/nico.coetzee "About Nico Coetzee")
