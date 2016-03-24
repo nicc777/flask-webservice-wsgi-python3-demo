@@ -19,7 +19,12 @@ with open(activate_this) as f:
     exec(code, thisGlobals)
 
 def application(environ, start_response):
-    ENVIRONMENT_VARIABLES = ['DB_CONN_STR', 'SECRET_KEY']
+    ENVIRONMENT_VARIABLES = [
+		'FLASK_DB_CONN_STR',
+		'FLASK_SECRET_KEY',
+		'FLASK_LOG_LEVEL',
+		'FLASK_LOG_HANDLER'
+	]
     for key in ENVIRONMENT_VARIABLES:
         os.environ[key] = environ.get(key)
     from fwsdemo.app import app as application

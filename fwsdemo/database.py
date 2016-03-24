@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-dbString = os.environ.get('DB_CONN_STR') or 'sqlite:///unittest.db'
+dbString = os.environ.get('FLASK_DB_CONN_STR') or 'sqlite:///unittest.db'
 print("Using dbString=%s" % dbString)
 
 engine = create_engine(dbString, convert_unicode=True)
