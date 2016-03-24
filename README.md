@@ -179,6 +179,18 @@ TOTAL                    25      0   100%
 (venv)# coverage html -d report_html --include='fwsdemo/*.py' --omit='*/__init__.py'
 ```
 
+## Logging
+
+Logging has been added to the example and the sample Apache config will direct the app to use Syslog.
+
+Note: On Debian, I had to enable the UDP listener in rsyslog.
+
+When you run a "curl" type test, you should see something like this in your log (/var/log/user.log on Debian):
+
+```
+Mar 24 13:37:41 FLASK_LOG [2016-03-24 13:37:41,455] [INFO] [app] [18] UserSummary Called from 192.168.56.1
+```
+
 ## Further Reading
 
 There were many resources I have used in putting this tutorial together, so overall I want to thank all the Python contributors on sites like stackoverflow which I use intensively almost on a daily basis - you guys rock! I wish I took down all the pages I used for this demo, but unfortunately I did not track it from the start, so I will just acknowledge for now the main non-stackoverflow resources I used.
