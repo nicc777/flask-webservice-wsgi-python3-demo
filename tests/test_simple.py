@@ -51,9 +51,10 @@ class Class1Test(unittest.TestCase):
     def test_1(self):
         print("  class 1 test 1")
         record = db_session.query(User).filter(User.name == 'person1').first()
-        assertEqual(record.email, 'p1@example.tld', 'Matching the correct email to the correct person')
+        self.assertEqual(record.email, 'p1@example.tld', 'Matching the correct email to the correct person')
+
 
     def test_2(self):
         print("  class 1 test 2")
         record = db_session.query(User).filter(User.name == 'person2').first()
-        assertEqual(record.email, 'p2@example.tld', 'Matching the correct email to the correct person')
+        self.assertEqual(record.email, 'p2@example.tld', 'Matching the correct email to the correct person')
