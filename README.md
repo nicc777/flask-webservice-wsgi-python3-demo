@@ -124,6 +124,42 @@ sqlite>
 {"userCount": 2}
 ```
 
+## Running the Unit Tests
+
+You can also run unit tests. Below is an example session to illustrate how to accomplish this. Note that some output have been omitted.
+
+```
+# cd /tmp
+# mkdir unittest
+# cd unittest/
+# virtualenv --python=python3 venv
+# . venv/bin/activate
+(venv)# git clone https://github.com/nicc777/flask-webservice-wsgi-python3-demo.git
+(venv)# cd flask-webservice-wsgi-python3-demo/
+(venv)# pip install flask sqlalchemy flask-restful
+(venv)# python -m unittest
+Using dbString=sqlite:///unittests.db
+setUpModule
+  setUpClass
+       setUp
+[<User 'person1'>, <User 'person2'>]
+  class 1 test 1
+       tearDown
+.       setUp
+WARNING: Couldn't create new test data.
+  class 1 test 2
+       tearDown
+.  tearDownClass
+tearDownModule
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.026s
+
+OK
+```
+
+Some more tests will be added in future...
+
 ## Further Reading
 
 There were many resources I have used in putting this tutorial together, so overall I want to thank all the Python contributors on sites like stackoverflow which I use intensively almost on a daily basis - you guys rock! I wish I took down all the pages I used for this demo, but unfortunately I did not track it from the start, so I will just acknowledge for now the main non-stackoverflow resources I used.
